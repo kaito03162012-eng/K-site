@@ -1,31 +1,78 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>ランダム画像ギャラリー</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Site Opener — サイトを開けるサイト（検索付き）</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <main class="wrap">
-    <h1>ランダム画像ギャラリー</h1>
+  <header class="header">
+    <div class="container header-inner">
+      <div class="brand">
+        <h1>SiteOpener</h1>
+        <small>URLを開く・簡易検索・画像プレビュー</small>
+      </div>
 
-    <div class="controls">
-      <button id="randomBtn" class="btn">ランダム画像を表示</button>
-
-      <!-- オプション: ローカル画像を使うなら ON に -->
-      <label class="switch">
-        <input type="checkbox" id="useLocal">
-        <span>ローカル画像を使う</span>
-      </label>
+      <form id="searchForm" class="search-form" aria-label="検索フォーム">
+        <input id="searchInput" type="search" placeholder="検索ワードを入力 (例: cats)" autocomplete="off" />
+        <select id="engineSelect" title="検索エンジン">
+          <option value="https://www.google.com/search?q=">Google</option>
+          <option value="https://duckduckgo.com/?q=">DuckDuckGo</option>
+        </select>
+        <button type="submit" class="btn">検索</button>
+      </form>
     </div>
+  </header>
 
-    <section id="gallery" class="gallery" aria-live="polite">
-      <div id="placeholder" class="placeholder">ここに画像が表示されます</div>
+  <main class="container main">
+    <section class="controls">
+      <div class="row">
+        <input id="urlInput" type="text" placeholder="URLを入力 (例: https://example.com または example.com)" />
+        <button id="openBtn" class="btn">開く（埋め込みを試す）</button>
+        <button id="openNewBtn" class="btn alt">新しいタブで開く</button>
+      </div>
+
+      <div class="row small">
+        <label><input id="tryEmbed" type="checkbox" checked /> iframeで埋め込みを試す（許可があれば）</label>
+        <label><input id="showImages" type="checkbox" /> 画像プレビューを表示</label>
+        <span id="status" class="status">状態: 待機中</span>
+      </div>
     </section>
 
-    <p class="note">ヒント：ローカル画像を使う場合は `images/` フォルダに画像を入れてください（例: images/1.jpg, images/2.png ...）。</p>
+    <section class="viewer">
+      <div class="left">
+        <div class="frame-wrap">
+          <iframe id="siteFrame" sandbox="allow-scripts allow-forms allow-same-origin" title="サイトのプレビュー"></iframe>
+          <div id="overlayMsg" class="overlay hidden"></div>
+        </div>
+      </div>
+
+      <aside class="right">
+        <h3>サイト情報</h3>
+        <p id="siteInfo">まだサイトを開いていません。</p>
+
+        <div id="imagesPanel" class="images-panel hidden">
+          <h4>画像プレビュー</h4>
+          <div id="imageHolder" class="image-holder">
+            <div class="placeholder">画像がここに出ます</div>
+          </div>
+          <button id="randomImageBtn" class="btn small">ランダム画像を表示</button>
+        </div>
+
+        <div class="note">
+          <strong>注意：</strong> 多くのサイトは iframe 埋め込みを拒否します（X-Frame-Options 等）。
+          埋め込みできない場合は自動で新しいタブで開きます。
+        </div>
+      </aside>
+    </section>
   </main>
+
+  <footer class="footer">
+    <div class="container">
+      <small>&copy; <span id="year"></span> SiteOpener — 簡易ブラウザ風ツール</small>
+    </div>
+  </footer>
 
   <script src="script.js"></script>
 </body>
