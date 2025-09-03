@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>はじめてのサイト</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f0f2f5; text-align: center; }
+    h1 { color: #1a73e8; }
+    p { font-size: 18px; }
+    button { padding: 10px 20px; background: #1a73e8; color: white; border: none; border-radius: 6px; }
+    button:hover { background: #1669c1; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>こんにちは！</h1>
+  <p>これは私のはじめてのWebサイトです 🎉</p>
+  <button onclick="alert('ボタンを押しました！')">クリックしてね</button>
+</body>
+</html>
